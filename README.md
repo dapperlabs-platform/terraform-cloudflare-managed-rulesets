@@ -8,18 +8,18 @@ This module creates the following cloudflare WAF managed ruleset:
 ### Cloudflare Managed Ruleset
 
  - Ruleset action (Required)
-    Default
+   - Default
  - Ruleset status
-    Default
+   - Default
  
 
 ### Cloudflare OWASP Core Ruleset
 
  - OWASP Anomaly Score Threshold (Required)
-    High - 25 and higher
+   - High - 25 and higher
     (Set the score threshold which will trigger the Firewall)
  - OWASP Paranoia Level (Required)
-    PL2
+   - PL2
     (Higher paranoia levels activate more aggressive rules)
  - OWASP Action (Required)
-    Managed Challenge
+   - Managed Challenge
