@@ -1,11 +1,11 @@
 # terraform-cloudflare-managed-rulesets
 
-### Cloudflare Managed Rulesets
+## Cloudflare Managed Rulesets
 
 This module creates the following cloudflare WAF managed ruleset:
 
 
-## Cloudflare Managed Ruleset
+### Cloudflare Managed Ruleset
 
  - Ruleset action (Required)
     Default
@@ -13,7 +13,7 @@ This module creates the following cloudflare WAF managed ruleset:
     Default
  
 
-## Cloudflare OWASP Core Ruleset
+### Cloudflare OWASP Core Ruleset
 
  - OWASP Anomaly Score Threshold (Required)
     High - 25 and higher
