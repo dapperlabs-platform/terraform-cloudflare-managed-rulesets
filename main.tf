@@ -13,7 +13,7 @@ resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
 
   zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
   name    = "Cloudflare Managed Ruleset"
-  kind    = "zone"
+  kind    = "managed"
   phase   = "http_request_firewall_managed"
 
   rules {
@@ -21,9 +21,8 @@ resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
     action_parameters {
       id = "efb7b8c949ac4650a09736fc376e9aee"
     }
-    expression  = var.cloudflare_managed_ruleset.expression
+    expression  = "true"
     description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-    enabled     = var.cloudflare_managed_ruleset.enabled
   }
 }
 
@@ -32,7 +31,7 @@ resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
 
   zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
   name    = "Cloudflare OWASP Core Ruleset"
-  kind    = "zone"
+  kind    = "managed"
   phase   = "http_request_firewall_managed"
 
   rules {
@@ -55,8 +54,7 @@ resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
         }
       }
     }
-    expression  = var.cloudflare_owasp_core_ruleset.expression
+    expression  = "true"
     description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-    enabled     = var.cloudflare_owasp_core_ruleset.enabled
   }
 }
