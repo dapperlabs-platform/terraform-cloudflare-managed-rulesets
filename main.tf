@@ -15,15 +15,6 @@ resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
   name    = "Cloudflare Managed Ruleset"
   kind    = "managed"
   phase   = "http_request_firewall_managed"
-
-  rules {
-    action = "execute"
-    action_parameters {
-      id = "efb7b8c949ac4650a09736fc376e9aee"
-    }
-    expression  = "true"
-    description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-  }
 }
 
 resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
