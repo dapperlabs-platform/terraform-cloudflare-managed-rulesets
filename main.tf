@@ -28,7 +28,6 @@ resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
   rules {
     action = "execute"
     action_parameters {
-      id = "4814384a9e5d4991b9815dcfc25d2f1f"
       overrides {
         categories {
           category = "paranoia-level-3"
