@@ -8,14 +8,14 @@ data "cloudflare_zones" "zones" {
   }
 }
 
-resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
-  count = length(var.domains)
-
-  zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
-  name    = "Cloudflare Managed Ruleset"
-  kind    = "managed"
-  phase   = "http_request_firewall_managed"
-}
+#resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
+#  count = length(var.domains)
+#
+#  zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
+#  name    = "Cloudflare Managed Ruleset"
+#  kind    = "managed"
+#  phase   = "http_request_firewall_managed"
+#}
 
 resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
   count = length(var.domains)
@@ -28,6 +28,7 @@ resource "cloudflare_ruleset" "zone_level_owasp_ruleset" {
   rules {
     action = "execute"
     action_parameters {
+      id = "4814384a9e5d4991b9815dcfc25d2f1f"
       overrides {
         categories {
           category = "paranoia-level-3"
