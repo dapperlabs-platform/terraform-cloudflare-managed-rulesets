@@ -23,7 +23,7 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
   zone_id     = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
   name        = "Cloudflare OWASP Core Ruleset"
   description = "Zone-level WAF Managed Rules config"
-  kind        = "zoned"
+  kind        = "zone"
   phase       = "http_request_firewall_managed"
 
   rules {
