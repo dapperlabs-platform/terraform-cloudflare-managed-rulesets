@@ -33,7 +33,7 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
       version = "latest"
       overrides {
         categories {
-          category = "paranoia-level-3"
+          category = "paranoia-level-2"
           action   = "block"
           enabled  = true
         }
