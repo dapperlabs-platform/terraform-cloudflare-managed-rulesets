@@ -26,6 +26,17 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
   kind        = "zone"
   phase       = "http_request_firewall_managed"
 
+  # Managed Ruleset
+  rules {
+    action = "execute"
+    action_parameters {
+      id = "efb7b8c949ac4650a09736fc376e9aee"
+    }
+    expression  = "true"
+    description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
+    enabled     = true
+  }
+
   # OWASP Core Ruleset
   rules {
     action = "execute"
@@ -49,17 +60,6 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
           score_threshold = 25
         }
       }
-    }
-    expression  = "true"
-    description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-    enabled     = true
-  }
-
-  # Managed Ruleset
-  rules {
-    action = "execute"
-    action_parameters {
-      id = "efb7b8c949ac4650a09736fc376e9aee"
     }
     expression  = "true"
     description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
