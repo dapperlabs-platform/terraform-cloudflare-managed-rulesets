@@ -8,15 +8,6 @@ data "cloudflare_zones" "zones" {
   }
 }
 
-#resource "cloudflare_ruleset" "zone_level_managed_ruleset" {
-#  count = length(var.domains)
-#
-#  zone_id = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
-#  name    = "Cloudflare Managed Ruleset"
-#  kind    = "managed"
-#  phase   = "http_request_firewall_managed"
-#}
-
 resource "cloudflare_ruleset" "zone_level_managed_waf" {
   count = length(var.domains)
 

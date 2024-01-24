@@ -23,3 +23,9 @@ This module creates the following cloudflare WAF managed ruleset:
     (Higher paranoia levels activate more aggressive rules)
  - OWASP Action (Required)
    - Managed Challenge
+
+### IMPORTANT
+  
+  - Order of the rules under the ruleset will set the priority/order
+  
+  - Any existing managed rules need to be deleted in the dashboard and recreated in terraform
