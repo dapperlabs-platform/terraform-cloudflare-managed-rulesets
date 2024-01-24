@@ -21,7 +21,7 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
   count = length(var.domains)
 
   zone_id     = lookup(data.cloudflare_zones.zones[count.index].zones[0], "id")
-  name        = "Cloudflare OWASP Core Ruleset"
+  name        = "Cloudflare Managed Ruleset"
   description = "Zone-level WAF Managed Rules config"
   kind        = "zone"
   phase       = "http_request_firewall_managed"
