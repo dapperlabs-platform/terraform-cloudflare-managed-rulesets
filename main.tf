@@ -25,7 +25,7 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
     }
     expression  = "true"
     description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-    enabled     = true
+    enabled     = var.managed_ruleset_enabled
   }
 
   # OWASP Core Ruleset
@@ -54,6 +54,6 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
     }
     expression  = "true"
     description = "Execute Cloudflare Managed Ruleset on my zone-level phase entry point ruleset"
-    enabled     = true
+    enabled     = var.owasp_enabled
   }
 }
