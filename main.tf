@@ -36,19 +36,29 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
       version = "latest"
       overrides {
         categories {
+          category = "paranoia-level-1"
+          action   = "block"
+          enabled  = var.paranoia_level == 1 ? true : false
+        }
+        categories {
+          category = "paranoia-level-2"
+          action   = "block"
+          enabled  = var.paranoia_level == 2 ? true : false
+        }
+        categories {
           category = "paranoia-level-3"
           action   = "block"
-          enabled  = false
+          enabled  = var.paranoia_level == 3 ? true : false
         }
         categories {
           category = "paranoia-level-4"
           action   = "block"
-          enabled  = false
+          enabled  = var.paranoia_level == 4 ? true : false
         }
         rules {
           id              = "6179ae15870a4bb7b2d480d4843b323c"
-          action          = "managed_challenge"
-          score_threshold = 25
+          action          = var.owasp_action
+          score_threshold = var.anomaly_score_threshold
         }
       }
     }
@@ -57,3 +67,59 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
     enabled     = var.owasp_enabled
   }
 }
+
+##      What I want the code to do
+##    
+##      paranoia = var.paranoia_level
+##    
+##      if paranoia_level == 3 then overides = XYZ
+##    
+##      if paranoia_level == 4 then overides = XYZ
+##    
+##      ETC
+##    
+##    What I think the API wants
+##    overrides {
+##    
+##      categories {
+##        category = "paranoia-level-2"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 1 ? false : null
+##      }
+##      categories {
+##        category = "paranoia-level-3"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 1:2 ? false : null
+##      }
+##      categories {
+##        category = "paranoia-level-4"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 1:2:3 ? false : null
+##      }
+##    }
+##    
+##    What I hope works
+##    
+##    overrides {
+##    
+##      categories {
+##        category = "paranoia-level-1"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 1 ? true : false
+##      }
+##      categories {
+##        category = "paranoia-level-2"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 2 ? true : false
+##      }
+##      categories {
+##        category = "paranoia-level-3"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 3 ? true : false
+##      }
+##      categories {
+##        category = "paranoia-level-4"
+##        action   = "block"
+##        enabled  = var.paranoia_level == 4 ? true : false
+##      }
+##    }
