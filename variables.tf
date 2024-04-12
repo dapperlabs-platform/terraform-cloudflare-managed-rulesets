@@ -14,3 +14,23 @@ variable "owasp_enabled" {
   description = "Enable OWASP Core Ruleset"
   default     = true
 }
+
+variable "owasp_action" {
+  type        = string
+  description = "OWASP Core Ruleset action"
+  default     = "log"
+}
+
+variable "anomaly_score_threshold" {
+  type        = number
+  description = "OWASP Core Ruleset anomaly score threshold"
+  default     = 60
+
+}
+
+variable "paranoia_level" {
+  type        = number
+  description = "OWASP Core Ruleset paranoia level"
+  default     = 3
+
+}

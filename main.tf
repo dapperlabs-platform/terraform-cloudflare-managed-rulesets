@@ -1,3 +1,23 @@
+locals {
+  category_settings = {
+    "1" = [
+      { category = "paranoia-level-2", enabled = false },
+      { category = "paranoia-level-3", enabled = false },
+      { category = "paranoia-level-4", enabled = false }
+    ],
+    "2" = [
+      { category = "paranoia-level-3", enabled = false },
+      { category = "paranoia-level-4", enabled = false }
+    ],
+    "3" = [
+      { category = "paranoia-level-4", enabled = false }
+    ],
+    "4" = []
+  }
+}
+
+
+
 data "cloudflare_zones" "zones" {
   count = length(var.domains)
 
@@ -7,6 +27,7 @@ data "cloudflare_zones" "zones" {
     paused      = false
   }
 }
+
 
 resource "cloudflare_ruleset" "zone_level_managed_waf" {
   count = length(var.domains)
@@ -35,20 +56,18 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
       id      = "4814384a9e5d4991b9815dcfc25d2f1f"
       version = "latest"
       overrides {
-        categories {
-          category = "paranoia-level-3"
-          action   = "block"
-          enabled  = false
+        dynamic "categories" {
+          for_each = local.category_settings[tostring(var.paranoia_level)]
+          content {
+            category = categories.value.category
+            enabled  = categories.value.enabled
+          }
         }
-        categories {
-          category = "paranoia-level-4"
-          action   = "block"
-          enabled  = false
-        }
+
         rules {
           id              = "6179ae15870a4bb7b2d480d4843b323c"
-          action          = "managed_challenge"
-          score_threshold = 25
+          action          = var.owasp_action
+          score_threshold = var.anomaly_score_threshold
         }
       }
     }
