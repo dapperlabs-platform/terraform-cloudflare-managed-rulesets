@@ -54,7 +54,6 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
     action = "execute"
     action_parameters {
       id      = "4814384a9e5d4991b9815dcfc25d2f1f"
-      version = "latest"
       overrides {
         dynamic "categories" {
           for_each = local.category_settings[tostring(var.paranoia_level)]
